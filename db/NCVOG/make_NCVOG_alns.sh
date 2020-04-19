@@ -37,5 +37,4 @@ if [ ! -d VOG ]; then
 	fi
     done < NCVOG.csv
 fi
-pushd VOG
-make -j $CPU -f ../Makefile
+make -j $CPU 

@@ -1,6 +1,6 @@
 
 
-seqs = $(wildcard *.fas)
+seqs = $(wildcard VOG/*.fas)
 cons = $(seqs:.fas=.cons)
 hmm  = $(seqs:.fas=.hmm)
 
