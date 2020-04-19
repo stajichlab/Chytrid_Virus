@@ -1,0 +1,5 @@
+##,name,portal,"NCBI Taxon","assembly length","#of genes","is public","is published","is superseded","superseded by","publication(s)","pubmed id(s)"
+1,"Paraphysoderma sedebokerense JEL821 v1.0",Parsed1,1500003,27876074,10859,Y,N,N,,,
+2,"Blastocladiella britannica v1.0",Blabri1,64508,19075314,9431,Y,N,N,,,
+3,"Catenaria anguillulae PL171 v2.0",Catan2,109876,41337528,12804,Y,Y,N,,"Mondo SJ et al.,2017","28481340"
+4,"Allomyces macrogynus ATCC 38327",Allma1,578462,57060573,19446,Y,N,N,,,

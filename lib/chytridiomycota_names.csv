@@ -1,0 +1,29 @@
+##,name,portal,"NCBI Taxon","assembly length","#of genes","is public","is published","is superseded","superseded by","publication(s)","pubmed id(s)"
+1,"Geranomyces variabilis JEL559 v1.0",Gervar1,109894,23695997,9411,Y,N,N,,,
+2,"Fimicolochytrium jonesii JEL569 v1.0",Fimjon1,1396493,30619153,10067,Y,N,N,,,
+3,"Chytriomyces hyalinus JEL632 v1.0",Chyhya1,4814,38103441,15516,Y,N,N,,,
+4,"Gorgonomyces haynaldii MP57 v1.0",Gorhay1,382530,13983420,7898,Y,N,N,,,
+5,"Triparticalcar arcticum BR59 v1.0",Triarc1,1117335,31548172,10963,Y,N,N,,,
+6,"Hyaloraphidium curvatum SAG235-1 v1.0",Hyacur1,82268,31926619,15197,Y,N,N,,,
+7,"Powellomyces hirtus BR81 v1.0",Powhir1,109895,29428253,9359,Y,N,N,,,
+8,"Cladochytrium polystomum WB228 v1.0",Clapol1_1,1437435,81192468,16599,Y,N,N,,,
+9,"Caecomyces churrovis A v1.0",Caecom1,2019372,165495782,15009,Y,N,N,,,
+10,"Blyttiomyces helicus single-cell v1.0",Blyhe1,388810,46472760,12167,Y,Y,N,,"Ahrendt SR et al.,2018","30297742"
+11,"Caulochytrium protostelioides ATCC 52028 v1.0",Caupr1,1555241,21796879,6168,Y,Y,N,,"Ahrendt SR et al.,2018","30297742"
+12,"Caulochytrium protostelioides ATCC 52028 single-cell v1.0",Caupr_SCcomb,1555241,10621701,3328,Y,Y,N,,"Ahrendt SR et al.,2018","30297742"
+13,"Obelidium mucronatum JEL802 v1.0",Obemuc1,110081,49458483,15468,Y,N,N,,,
+14,"Homolaphlyctis polyrhiza JEL142 v1.0",Hompol1,1142505,21324754,7123,Y,Y,N,,"Joneson S et al.,2011","22072962"
+15,"Chytridium lagenaria Arg66 v1.0",Chylag1,64509,42380874,14275,Y,N,N,,,
+16,"Entophlyctis helioformis JEL805 v1.0",Enthel1,281842,30915201,10118,Y,N,N,,,
+17,"Gaertneriomyces semiglobifer Barr 43 v1.0",Gaesem1,109897,20918219,8714,Y,N,N,,,
+18,"Chytriomyces sp. MP 71 v1.0",Chytri1,1882861,36383760,16054,Y,N,N,,,
+19,"Globomyces pollinis-pini Arg68 v1.0",Glopol1,382532,21646612,11537,Y,N,N,,,
+20,"Neocallimastix californiae G1 v1.0",Neosp1,1754190,193032486,20219,Y,Y,N,,"Haitjema CH et al.,2017","28555641"
+21,"Anaeromyces robustus v1.0",Anasp1,1754192,71685009,12832,Y,Y,N,,"Haitjema CH et al.,2017~Mondo SJ et al.,2017","28555641 28481340"
+22,"Piromyces finnis v3.0",Pirfi3,1754191,56455805,10992,Y,Y,N,,"Haitjema CH et al.,2017~Mondo SJ et al.,2017","28555641 28481340"
+23,"Spizellomyces punctatus DAOM BR117",Spipu1,645134,24131112,9424,Y,Y,N,,"Russ C et al.,2016","27540072"
+24,"Rhizoclosmatium globosum JEL800 v1.0",Rhihy1,329046,57018351,16990,Y,Y,N,,"Mondo SJ et al.,2017","28481340"
+25,"Orpinomyces sp.",Orpsp1_1,1987568,100954185,18936,Y,Y,N,,"Youssef NH et al.,2013","23709508"
+26,"Batrachochytrium dendrobatidis JAM81 v1.0",Batde5,684364,24315081,8732,Y,N,N,,,
+27,"Gonapodya prolifera v1.0",Ganpr1,1123529,48794828,13902,Y,Y,N,,"Chang Y et al.,2015","25977457"
+28,"Piromyces sp. E2 v1.0",PirE2_1,73868,71019055,14648,Y,Y,N,,"Haitjema CH et al.,2017","28555641"
