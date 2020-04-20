@@ -25,15 +25,14 @@ fi
 
 IFS=,
 if [[ $FORCE == 1 ]]; then
-#    rm -rf VOG
-echo "would remove VOG folder"
+    rm -rf VOG
 fi
-if [ ! -d VOG ]; then
-    mkdir -p VOG
+if [ ! -d NCVOG ]; then
+    mkdir -p NCVOG
     while read ID GENOME PROT LEN START END VOG NUM
     do
 	if [ ! -z $VOG ]; then
-	    blastdbcmd -db NCVOG.fa -entry $ID >> VOG/$VOG.fas
+	    blastdbcmd -db NCVOG.fa -entry $ID >> NCVOG/$VOG.fas
 	fi
     done < NCVOG.csv
 fi
