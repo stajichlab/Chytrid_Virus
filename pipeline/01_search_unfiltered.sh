@@ -18,7 +18,7 @@ if [ -z $N ]; then
 fi
 GENOMES=spades_noreadfilter
 QUERY=db/NCVOG/VOG.consensus.fasta
-OUT=search
+OUT=search/genome
 mkdir -p $OUT
 TARGET=$(ls $GENOMES/*.fasta | sed -n ${N}p)
 OUTFILE=$OUT/$(basename $TARGET .fasta).TFASTX.tab
