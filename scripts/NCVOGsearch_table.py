@@ -3,7 +3,7 @@
 import csv, os, sys, re
 
 topdir="search"
-outVOG="results/VOG_hits.tsv"
+outVOG="results/NCVOG_hits.tsv"
 table = {}
 orgs = {}
 for infile in os.listdir(topdir):

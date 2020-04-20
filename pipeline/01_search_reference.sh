@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-#SBATCH -p short -N 1 -n 8 --mem 4gb --out logs/search_ref.%a.log
+#SBATCH -p intel -N 1 -n 8 --mem 32gb --out logs/search_ref.%a.log
 
 module load fasta
 
