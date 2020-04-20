@@ -1,0 +1,16 @@
+#!/usr/bin/bash
+#SBATCH -p stajichlab --ntasks 1 --nodes 1 --mem 2G --time 8:00:00 -o download_fungixml.log
+USERNAME=YOURUSERNAME
+PASSWORD=YOURPASSWORD
+curl 'https://signon.jgi.doe.gov/signon/create' --data-urlencode "login=$USERNAME" --data-urlencode "password=$PASSWORD" -c cookies > /dev/null 
+
+for PHYLUM in chytridiomycota blastocladiomycota
+do
+    if [ ! -f lib/$PHYLUM.xml ]; then
+	curl 'https://genome.jgi.doe.gov/portal/ext-api/downloads/get-directory?organism=fungi&organizedByFileType=true' -b cookies > lib/$PHYLUM.xml
+    fi
+done
+
+curl -o lib/jgi_names.csv 'https://mycocosm.jgi.doe.gov/ext-api/mycocosm/catalog/download-group?flt=&pub=all&grp=fungi&srt=released&ord=desc'
+perl -i -p -e 's/^(\d),(\d{3})/$1$2/' lib/jgi_names.csv
+python scripts/jginames_to_tab.py
