@@ -3,7 +3,7 @@
 import csv, os, sys, re
 
 jginamesfile ="lib/jgi_names.tab"
-topdir="search"
+topdir="search/genome"
 outVOG="results/NCVOG_hits_score.tsv"
 outVOGctg="results/NCVOG_hits_ctgs.tsv"
 table = {}
@@ -30,7 +30,7 @@ for infile in os.listdir(topdir):
             VOG = row[0]
             VOG = re.sub(r'-consensus','',VOG)
             contig = row[1]
-            evalue = row[10]
+            evalue = float(row[10])
             if VOG not in table:
                 table[VOG] = {}
             if org not in table[VOG]:
