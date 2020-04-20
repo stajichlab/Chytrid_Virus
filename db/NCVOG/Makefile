@@ -1,24 +1,24 @@
 
 
-seqs = $(wildcard VOG/*.fas)
+seqs = $(wildcard NCVOG/*.fas)
 cons = $(seqs:.fas=.cons)
 hmm  = $(seqs:.fas=.hmm)
 
-all: VOG.consensus.fas VOG.hmm VOG.hmmb
+all: NCVOG.consensus.fas NCVOG.hmm NCVOG.hmmb
 
 .PHONY: clean
 clean:
 	rm -f *.hmm *.cons *.fasaln
 
-VOG.hmmb: VOG.hmm
+%.hmmb: %.hmm
 	hmmconvert -b $< > $@
 	hmmpress $@
 
-VOG.hmm: $(hmm)
+NCVOG.hmm: $(hmm)
 	cat $(hmm) > $@
 	hmmpress $@
 
-VOG.consensus.fas: $(cons)
+NCVOG.consensus.fas: $(cons)
 	cat $(cons) > $@
 	
 %.fasaln : %.fas
