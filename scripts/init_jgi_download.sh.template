@@ -1,16 +1,22 @@
 #!/usr/bin/bash
-#SBATCH -p stajichlab --ntasks 1 --nodes 1 --mem 2G --time 8:00:00 -o download_fungixml.log
-USERNAME=YOURUSERNAME
-PASSWORD=YOURPASSWORD
-curl 'https://signon.jgi.doe.gov/signon/create' --data-urlencode "login=$USERNAME" --data-urlencode "password=$PASSWORD" -c cookies > /dev/null 
+#SBATCH -p short --ntasks 1 --nodes 1 --mem 2G --time 8:00:00 -o download_fungixml.log
+USERNAME=YOUREMAILFORJGI
+PASSWORD=YOURJGIPASSWORD
+curl 'https://signon.jgi.doe.gov/signon/create' --data-urlencode "login=$USERNAME" --data-urlencode "password=$PASSWORD" -c cookies > /dev/null
+
+module unload perl
+module load parallel
 
 for PHYLUM in chytridiomycota blastocladiomycota
 do
     if [ ! -f lib/$PHYLUM.xml ]; then
-	curl 'https://genome.jgi.doe.gov/portal/ext-api/downloads/get-directory?organism=fungi&organizedByFileType=true' -b cookies > lib/$PHYLUM.xml
+	     curl "https://genome.jgi.doe.gov/portal/ext-api/downloads/get-directory?organism=$PHYLUM&organizedByFileType=true" -b cookies > lib/$PHYLUM.xml
     fi
+   curl -o lib/${PHYLUM}_names.csv "https://mycocosm.jgi.doe.gov/ext-api/mycocosm/catalog/download-group?flt=&pub=all&grp=$PHYLUM&srt=released&ord=desc"
+   perl -i -p -e 's/^(\d),(\d{3})/$1$2/' lib/${PHYLUM}_names.csv
+   python scripts/jgi_download.py lib/$PHYLUM.xml
+   cat lib/jgi_download.sh | parallel
+   # we compress this for syncing to google drive later
+   pigz -d --keep reference_genomes/DNA/*.gz
 done
-
-curl -o lib/jgi_names.csv 'https://mycocosm.jgi.doe.gov/ext-api/mycocosm/catalog/download-group?flt=&pub=all&grp=fungi&srt=released&ord=desc'
-perl -i -p -e 's/^(\d),(\d{3})/$1$2/' lib/jgi_names.csv
 python scripts/jginames_to_tab.py
