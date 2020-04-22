@@ -4,7 +4,7 @@ seqs = $(wildcard NCVOG/*.fas)
 cons = $(seqs:.fas=.cons)
 hmm  = $(seqs:.fas=.hmm)
 
-all: NCVOG.consensus.fas NCVOG.hmm NCVOG.hmmb
+all: NCVOG.consensus.fasta NCVOG.hmm NCVOG.hmmb
 
 .PHONY: clean
 clean:
@@ -18,7 +18,7 @@ NCVOG.hmm: $(hmm)
 	cat $(hmm) > $@
 	hmmpress $@
 
-NCVOG.consensus.fas: $(cons)
+NCVOG.consensus.fasta: $(cons)
 	cat $(cons) > $@
 	
 %.fasaln : %.fas

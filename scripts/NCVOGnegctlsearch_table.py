@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
 import csv, os, sys, re
-evalue_cutoff = 1e-10
+
 jginamesfile ="lib/jgi_names.tab"
-topdir="search/protein_NCVOG"
-outVOG="results/NCVOG_proteinhits_score.tsv"
-outVOGctg="results/NCVOG_proteinhits_ctgs.tsv"
+topdir="search/negctl_genome"
+outVOG="results/NCVOG_negctl_hits_score.tsv"
+outVOGctg="results/NCVOG_negctl_hits_ctgs.tsv"
 table = {}
 orgs = {}
 jginames = {}
@@ -15,9 +15,10 @@ with open(jginamesfile,"r") as fh:
         jginames[row[0]] = row[1]
 
 for infile in os.listdir(topdir):
-    if not infile.endswith(".domtbl"):
+    if not infile.endswith(".TFASTX.tab"):
         continue
-    org = re.sub('(\.LCG)?\.hmmscan\.domtbl$','',infile)
+    stem = infile.split('.')
+    org = stem[0]
     if org in jginames:
         org = jginames[org]
     orgs[org] = 1
@@ -25,19 +26,17 @@ for infile in os.listdir(topdir):
         for line in fh:
             if line.startswith("#"):
                 continue
-            line.strip("\n")
-            row = line.split()
+            row = line.split("\t")
             VOG = row[0]
-            hit = row[3]
-            evalue = float(row[6])
-            if evalue > evalue_cutoff:
-                continue
+            VOG = re.sub(r'-consensus','',VOG)
+            contig = row[1]
+            evalue = float(row[10])
             if VOG not in table:
                 table[VOG] = {}
             if org not in table[VOG]:
-                table[VOG][org] = [ [hit,evalue] ] # store first hit
-            else:
-                table[VOG][org].append( [hit,evalue] )# store next hit
+                table[VOG][org] = [contig,evalue] # store first hit
+            elif table[VOG][org][1] > evalue:
+                table[VOG][org] = [contig,evalue] # store best hit
 
 orgnames = sorted(orgs.keys())
 header = ['VOG']
@@ -52,13 +51,11 @@ with open(outVOG,"w") as outVOGfh, open(outVOGctg,"w") as outVOGctgfh:
         rowctg = [VOG]
         for org in orgnames:
             if org in table[VOG]:
-                table[VOG][org].sort(key=lambda x: x[1])
-                besthit = table[VOG][org][0]
-                row.append("%s (%s hits)"%(besthit[1],len(table[VOG][org])))
-#                rowctg.append(table[VOG][org][0])
+                row.append(table[VOG][org][1])
+                rowctg.append(table[VOG][org][0])
             else:
                 row.append("")
-#                rowctg.append("")
+                rowctg.append("")
 
         outcsv.writerow(row)
         outctgcsv.writerow(rowctg)
