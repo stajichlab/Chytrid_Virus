@@ -19,12 +19,21 @@ if [ -z $N ]; then
 fi
 PEP=proteins
 QUERY=db/NCVOG/NCVOG.hmmb
-OUT=search/protein
+OUT=search/protein_NCVOG
 mkdir -p $OUT
 TARGET=$(ls $PEP/*.aa.fasta | sed -n ${N}p)
 OUTFILE=$OUT/$(basename $TARGET .aa.fasta).hmmscan
 
 if [[ ! -f $OUTFILE.done || $TARGET -nt $OUTFILE.done ]]; then
 	hmmscan -E 1e-8 --cpu $CPU --domtblout $OUTFILE.domtbl $QUERY $TARGET > $OUTFILE.log
+  touch $OUTFILE.done
+fi
+
+OUT=search/protein_NCLDV
+QUERY=db/Guglielmini/NCLDV.hmmb
+mkdir -p $OUT
+OUTFILE=$OUT/$(basename $TARGET .aa.fasta).hmmscan
+if [[ ! -f $OUTFILE.done || $TARGET -nt $OUTFILE.done ]]; then
+        hmmscan -E 1e-8 --cpu $CPU --domtblout $OUTFILE.domtbl $QUERY $TARGET > $OUTFILE.log
   touch $OUTFILE.done
 fi
