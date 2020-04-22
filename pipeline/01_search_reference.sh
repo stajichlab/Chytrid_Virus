@@ -18,7 +18,7 @@ if [ -z $N ]; then
     fi
 fi
 GENOMES=reference_genomes/DNA
-QUERY=db/NCVOG/VOG.consensus.fasta
+QUERY=db/NCVOG/NCVOG.consensus.fasta
 OUT=search/genome
 mkdir -p $OUT
 TARGET=$(ls $GENOMES/*.fasta | sed -n ${N}p)
