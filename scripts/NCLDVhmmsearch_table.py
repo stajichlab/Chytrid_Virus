@@ -40,7 +40,7 @@ for infile in os.listdir(topdir):
                 table[VOG][org].append( [hit,evalue] )# store next hit
 
 orgnames = sorted(orgs.keys())
-header = ['VOG']
+header = ['NCLDV_gene']
 header.extend(orgnames)
 with open(outVOG,"w") as outVOGfh, open(outVOGctg,"w") as outVOGctgfh:
     outcsv = csv.writer(outVOGfh,delimiter="\t",lineterminator="\n")
