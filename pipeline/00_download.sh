@@ -13,3 +13,8 @@ pushd db/NCVOG
 #bash make_NCVOG_alns.sh
 sbatch make_NCVOG_alns.sh
 
+popd
+mkdir -p db/Guglielmini
+pushd db/Guglielmini
+curl -O "https://zenodo.org/record/3368642/files/Additional%20data.zip"
+unzip Additional%20data.zip
