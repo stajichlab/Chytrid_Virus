@@ -18,7 +18,7 @@ if [ -z $N ]; then
 fi
 GENOMES=spades_noreadfilter
 QUERY=db/NCVOG/NCVOG.consensus.fasta
-OUT=search/genome
+OUT=search/genome_NCVOG
 mkdir -p $OUT
 TARGET=$(ls $GENOMES/*.fasta | sed -n ${N}p)
 OUTFILE=$OUT/$(basename $TARGET .fasta).TFASTX.tab
@@ -27,3 +27,13 @@ if [[ ! -f $OUTFILE.done || $TARGET -nt $OUTFILE.done ]]; then
   tfasty36 -m 8c -E 1e-10 -T $CPU $QUERY $TARGET > $OUTFILE
   touch $OUTFILE.done
 fi
+
+QUERY=db/Guglielmini/NCLDV.consensus.fasta
+OUT=search/genome_NCLDV
+mkdir -p $OUT
+OUTFILE=$OUT/$(basename $TARGET .fasta).TFASTX.tab
+if [[ ! -f $OUTFILE.done || $TARGET -nt $OUTFILE.done ]]; then
+	tfasty36 -m 8c -E 1e-10 -T $CPU $QUERY $TARGET > $OUTFILE
+	touch $OUTFILE.done
+fi
+
