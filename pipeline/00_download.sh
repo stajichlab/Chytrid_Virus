@@ -22,3 +22,24 @@ mkdir -p db/Guglielmini
 pushd db/Guglielmini
 curl -O "https://zenodo.org/record/3368642/files/Additional%20data.zip"
 unzip Additional%20data.zip
+
+mkdir -p db/rRNA
+pushd db/rRNA
+module load ncbi-blast/2.9.0+
+if [ ! -s fungi.rRNA.fasta ]; then
+	  for FILE in ITS 28SrRNA 18SrRNA; do
+			curl -O -L -C - "ftp://ftp.ncbi.nlm.nih.gov/refseq/TargetedLoci/Fungi/fungi.$FILE.fna.gz"
+		done
+		pigz -dc fungi.*.fna.gz > fungi.rRNA.fasta
+		makeblastdb -in fungi.rRNA.fasta -title fungi.rRNA -out fungi.rRNA -dbtype nucl -parse_seqids
+		rm -f *.gz
+fi
+popd
+
+mkdir -p db/MT
+pushd db/MT
+if [ ! -s MT_peps.fa ]; then
+	for N in P80440 Q0H8Y4 P15563 P03880 P50363 P50365 P50368 P80439 P80441 Q37395 ; do
+		curl "https://www.uniprot.org/uniprot/P80440.fasta" >> MT_peps.fa
+	done
+fi
