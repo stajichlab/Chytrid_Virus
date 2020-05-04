@@ -1,10 +1,14 @@
 #!/usr/bin/bash
 #SBATCH -p short
 
-if [ ! -d spades_noreadfilter ]; then
+if [ ! -d spades_nofilter ]; then
 	# replace with a osf.io download in future?
 	gdrive download -r 1Bv1MkQzki9GJLpE8iziCSaUuhD5hk1_s
-	pigz -d spades_noreadfilter/*.gz
+	mv spades_noreadfilter_for_Virus spades_nofilter
+	pushd genomes_nofilter
+	for file in *.gz; do m=$(echo $file | perl -p -e 's/^\S+_((JEL|ARG|KLL_TL\S+|CCIBt|Burma_1F|California_|PLAUS|WJD)\d*)\.spades/$1.spades/'); mv $file $m; done
+	popd
+	pigz -d genomes_nofilter/*.gz
 fi
 pushd db/NCVOG
 
