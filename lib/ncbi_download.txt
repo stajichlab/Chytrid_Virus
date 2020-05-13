@@ -1,0 +1,9 @@
+Batrachochytrium_dendrobatidis_JEL423.ncbi.genes.gff3	https://ftp.ncbi.nlm.nih.gov/genomes/genbank/fungi/Batrachochytrium_dendrobatidis/latest_assembly_versions/GCA_000149865.1_BD_JEL423/GCA_000149865.1_BD_JEL423_genomic.gff.gz
+Batrachochytrium_salamandrivorans_BS.ncbi.genes.gff3	https://ftp.ncbi.nlm.nih.gov/genomes/genbank/fungi/Batrachochytrium_salamandrivorans/latest_assembly_versions/GCA_002006685.1_Batr_sala_BS_V1/GCA_002006685.1_Batr_sala_BS_V1_genomic.gff.gz
+Chytriomyces_confervae_CBS_675.73.ncbi.genes.gff3	https://ftp.ncbi.nlm.nih.gov/genomes/genbank/fungi/Chytriomyces_confervae/latest_assembly_versions/GCA_006535975.1_ASM653597v1/GCA_006535975.1_ASM653597v1_genomic.gff.gz
+Mitosporidium_daphniae_UGP3.ncbi.genes.gff3	https://ftp.ncbi.nlm.nih.gov/genomes/genbank/fungi/Mitosporidium_daphniae/latest_assembly_versions/GCA_000760515.2_UGP1.1/GCA_000760515.2_UGP1.1_genomic.gff.gz
+Paramicrosporidium_saccamoebae_KSL3.ncbi.genes.gff3	https://ftp.ncbi.nlm.nih.gov/genomes/genbank/fungi/Paramicrosporidium_saccamoebae/latest_assembly_versions/GCA_002794465.1_KSL3_v6/GCA_002794465.1_KSL3_v6_genomic.gff.gz
+Powellomyces_hirtus_CBS_809.83.genes.gff3	https://ftp.ncbi.nlm.nih.gov/genomes/genbank/fungi/Powellomyces_hirtus/latest_assembly_versions/GCA_006536005.1_ASM653600v1/GCA_006536005.1_ASM653600v1_genomic.gff.gz
+Spizellomyces_sp._palustris_CBS_455.65.genes.gff3	https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/006/535/965/GCA_006535965.1_ASM653596v1/GCA_006535965.1_ASM653596v1_genomic.gff.gz
+Synchytrium_endobioticum_MB42.genes.gff3	https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/006/535/955/GCA_006535955.1_ASM653595v1/GCA_006535955.1_ASM653595v1_genomic.gff.gz
+Synchytrium_microbalum_JEL517.genes.gff3	https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/006/535/985/GCF_006535985.1_ASM653598v1/GCF_006535985.1_ASM653598v1_genomic.gff.gz

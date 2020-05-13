@@ -43,3 +43,9 @@ if [ ! -s MT_peps.fa ]; then
 		curl "https://www.uniprot.org/uniprot/P80440.fasta" >> MT_peps.fa
 	done
 fi
+popd
+mkdir -p gff3
+cat lib/ncbi_download.txt  | while read GFF URL
+do
+	curl $URL | zgrep -P "\tgene\t" | perl -p -e 's/ID=gene-([^;]+);.+/ID=$1/' | pigz -c > gff3/$GFF.gz
+done
