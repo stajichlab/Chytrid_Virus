@@ -22593,7 +22593,7 @@ NCVOG0327            -            604 HDV00|HDV00_012841-T1 -            253   5
 # Pipeline mode:   SCAN
 # Query file:      proteins/Rhizophlyctis_rosea_JEL0764.LCG.aa.fasta
 # Target file:     db/NCVOG/NCVOG.hmmb
-# Option settings: hmmscan --domtblout search/protein/Rhizophlyctis_rosea_JEL0764.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/NCVOG/NCVOG.hmmb proteins/Rhizophlyctis_rosea_JEL0764.LCG.aa.fasta 
+# Option settings: hmmscan --domtblout search/protein_NCVOG/Rhizophlyctis_rosea_JEL0764.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/NCVOG/NCVOG.hmmb proteins/Rhizophlyctis_rosea_JEL0764.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Mon Apr 20 21:30:54 2020
+# Date:            Tue May 12 14:30:03 2020
 # [ok]

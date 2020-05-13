@@ -120,5 +120,5 @@ rnapol2              -           1022 GGF32|GGF32_009921-T1 -           1152  1.
 # Target file:     db/Guglielmini/NCLDV.hmmb
 # Option settings: hmmscan --domtblout search/protein_NCLDV/Allomyces_javanicus_California_12.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/Guglielmini/NCLDV.hmmb proteins/Allomyces_javanicus_California_12.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Tue Apr 21 22:40:08 2020
+# Date:            Sat May  9 12:34:32 2020
 # [ok]

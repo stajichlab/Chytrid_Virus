@@ -78,5 +78,5 @@ primase              -            744 HDU80|HDU80_011704-T1 -            304   5
 # Target file:     db/Guglielmini/NCLDV.hmmb
 # Option settings: hmmscan --domtblout search/protein_NCLDV/Chytriomyces_hyalinus_JEL0176.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/Guglielmini/NCLDV.hmmb proteins/Chytriomyces_hyalinus_JEL0176.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Tue Apr 21 22:40:42 2020
+# Date:            Sat May  9 13:05:43 2020
 # [ok]

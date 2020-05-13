@@ -6563,7 +6563,7 @@ NCVOG0304            -            495 HDU92|HDU92_009207-T1 -            138    
 # Pipeline mode:   SCAN
 # Query file:      proteins/Lobulomyces_angularis_JEL0522.LCG.aa.fasta
 # Target file:     db/NCVOG/NCVOG.hmmb
-# Option settings: hmmscan --domtblout search/protein/Lobulomyces_angularis_JEL0522.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/NCVOG/NCVOG.hmmb proteins/Lobulomyces_angularis_JEL0522.LCG.aa.fasta 
+# Option settings: hmmscan --domtblout search/protein_NCVOG/Lobulomyces_angularis_JEL0522.LCG.hmmscan.domtbl -E 1e-8 --cpu 8 db/NCVOG/NCVOG.hmmb proteins/Lobulomyces_angularis_JEL0522.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Mon Apr 20 19:30:02 2020
+# Date:            Tue May 12 16:56:47 2020
 # [ok]

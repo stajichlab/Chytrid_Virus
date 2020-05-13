@@ -9662,7 +9662,7 @@ NCVOG4344            -            502 HDU84|HDU84_009895-T1 -            305   3
 # Pipeline mode:   SCAN
 # Query file:      proteins/Entophlyctis_sp._JEL0112.LCG.aa.fasta
 # Target file:     db/NCVOG/NCVOG.hmmb
-# Option settings: hmmscan --domtblout search/protein/Entophlyctis_sp._JEL0112.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/NCVOG/NCVOG.hmmb proteins/Entophlyctis_sp._JEL0112.LCG.aa.fasta 
+# Option settings: hmmscan --domtblout search/protein_NCVOG/Entophlyctis_sp._JEL0112.LCG.hmmscan.domtbl -E 1e-8 --cpu 8 db/NCVOG/NCVOG.hmmb proteins/Entophlyctis_sp._JEL0112.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Mon Apr 20 16:24:05 2020
+# Date:            Tue May 12 17:00:26 2020
 # [ok]

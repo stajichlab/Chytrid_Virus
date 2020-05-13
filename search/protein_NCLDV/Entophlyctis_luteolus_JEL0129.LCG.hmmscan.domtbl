@@ -79,7 +79,7 @@ dnapol               -            841 HDU83|HDU83_009714-T1 -           1530    
 # Pipeline mode:   SCAN
 # Query file:      proteins/Entophlyctis_luteolus_JEL0129.LCG.aa.fasta
 # Target file:     db/Guglielmini/NCLDV.hmmb
-# Option settings: hmmscan --domtblout search/protein_NCLDV/Entophlyctis_luteolus_JEL0129.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/Guglielmini/NCLDV.hmmb proteins/Entophlyctis_luteolus_JEL0129.LCG.aa.fasta 
+# Option settings: hmmscan --domtblout search/protein_NCLDV/Entophlyctis_luteolus_JEL0129.LCG.hmmscan.domtbl -E 1e-8 --cpu 8 db/Guglielmini/NCLDV.hmmb proteins/Entophlyctis_luteolus_JEL0129.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Tue Apr 21 22:40:35 2020
+# Date:            Tue May 12 17:01:13 2020
 # [ok]

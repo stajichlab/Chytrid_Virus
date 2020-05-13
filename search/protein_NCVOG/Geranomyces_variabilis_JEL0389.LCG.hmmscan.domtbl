@@ -5723,7 +5723,7 @@ NCVOG4422            -            365 HDU88|HDU88_009041-T1 -            272   5
 # Pipeline mode:   SCAN
 # Query file:      proteins/Geranomyces_variabilis_JEL0389.LCG.aa.fasta
 # Target file:     db/NCVOG/NCVOG.hmmb
-# Option settings: hmmscan --domtblout search/protein/Geranomyces_variabilis_JEL0389.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/NCVOG/NCVOG.hmmb proteins/Geranomyces_variabilis_JEL0389.LCG.aa.fasta 
+# Option settings: hmmscan --domtblout search/protein_NCVOG/Geranomyces_variabilis_JEL0389.LCG.hmmscan.domtbl -E 1e-8 --cpu 8 db/NCVOG/NCVOG.hmmb proteins/Geranomyces_variabilis_JEL0389.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Mon Apr 20 21:14:47 2020
+# Date:            Tue May 12 16:57:01 2020
 # [ok]

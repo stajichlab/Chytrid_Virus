@@ -93,7 +93,7 @@ rnapol2              -           1022 GGF31|GGF31_008919-T1 -           1152    
 # Pipeline mode:   SCAN
 # Query file:      proteins/Allomyces_arbuscula_Burma_1F.LCG.aa.fasta
 # Target file:     db/Guglielmini/NCLDV.hmmb
-# Option settings: hmmscan --domtblout search/protein_NCLDV/Allomyces_arbuscula_Burma_1F.LCG.hmmscan.domtbl -E 1e-8 --cpu 4 db/Guglielmini/NCLDV.hmmb proteins/Allomyces_arbuscula_Burma_1F.LCG.aa.fasta 
+# Option settings: hmmscan --domtblout search/protein_NCLDV/Allomyces_arbuscula_Burma_1F.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/Guglielmini/NCLDV.hmmb proteins/Allomyces_arbuscula_Burma_1F.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Tue Apr 21 22:35:58 2020
+# Date:            Sat May  9 12:30:02 2020
 # [ok]

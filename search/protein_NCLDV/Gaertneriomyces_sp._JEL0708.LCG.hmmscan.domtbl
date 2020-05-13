@@ -93,7 +93,7 @@ pATPase              -            234 HDU85|HDU85_007834-T1 -            132   4
 # Pipeline mode:   SCAN
 # Query file:      proteins/Gaertneriomyces_sp._JEL0708.LCG.aa.fasta
 # Target file:     db/Guglielmini/NCLDV.hmmb
-# Option settings: hmmscan --domtblout search/protein_NCLDV/Gaertneriomyces_sp._JEL0708.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/Guglielmini/NCLDV.hmmb proteins/Gaertneriomyces_sp._JEL0708.LCG.aa.fasta 
+# Option settings: hmmscan --domtblout search/protein_NCLDV/Gaertneriomyces_sp._JEL0708.LCG.hmmscan.domtbl -E 1e-8 --cpu 8 db/Guglielmini/NCLDV.hmmb proteins/Gaertneriomyces_sp._JEL0708.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Tue Apr 21 22:40:21 2020
+# Date:            Tue May 12 16:53:31 2020
 # [ok]

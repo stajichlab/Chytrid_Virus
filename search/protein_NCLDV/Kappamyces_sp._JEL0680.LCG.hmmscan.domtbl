@@ -66,7 +66,7 @@ pATPase-polinto      -            231 HDU91|HDU91_007522-T1 -           1108    
 # Pipeline mode:   SCAN
 # Query file:      proteins/Kappamyces_sp._JEL0680.LCG.aa.fasta
 # Target file:     db/Guglielmini/NCLDV.hmmb
-# Option settings: hmmscan --domtblout search/protein_NCLDV/Kappamyces_sp._JEL0680.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/Guglielmini/NCLDV.hmmb proteins/Kappamyces_sp._JEL0680.LCG.aa.fasta 
+# Option settings: hmmscan --domtblout search/protein_NCLDV/Kappamyces_sp._JEL0680.LCG.hmmscan.domtbl -E 1e-8 --cpu 8 db/Guglielmini/NCLDV.hmmb proteins/Kappamyces_sp._JEL0680.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Tue Apr 21 22:40:14 2020
+# Date:            Tue May 12 16:49:41 2020
 # [ok]

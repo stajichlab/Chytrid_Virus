@@ -110,5 +110,5 @@ vltf3                -            283 HDU81|HDU81_011393-T1 -            188   1
 # Target file:     db/Guglielmini/NCLDV.hmmb
 # Option settings: hmmscan --domtblout search/protein_NCLDV/Chytriomyces_hyalinus_JEL0345.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/Guglielmini/NCLDV.hmmb proteins/Chytriomyces_hyalinus_JEL0345.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Tue Apr 21 22:40:37 2020
+# Date:            Sat May  9 13:04:21 2020
 # [ok]

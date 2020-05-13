@@ -3842,7 +3842,7 @@ NCVOG0241            -            405 HDU91|HDU91_007523-T1 -            184   9
 # Pipeline mode:   SCAN
 # Query file:      proteins/Kappamyces_sp._JEL0680.LCG.aa.fasta
 # Target file:     db/NCVOG/NCVOG.hmmb
-# Option settings: hmmscan --domtblout search/protein/Kappamyces_sp._JEL0680.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/NCVOG/NCVOG.hmmb proteins/Kappamyces_sp._JEL0680.LCG.aa.fasta 
+# Option settings: hmmscan --domtblout search/protein_NCVOG/Kappamyces_sp._JEL0680.LCG.hmmscan.domtbl -E 1e-8 --cpu 8 db/NCVOG/NCVOG.hmmb proteins/Kappamyces_sp._JEL0680.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Mon Apr 20 20:57:27 2020
+# Date:            Tue May 12 16:49:31 2020
 # [ok]

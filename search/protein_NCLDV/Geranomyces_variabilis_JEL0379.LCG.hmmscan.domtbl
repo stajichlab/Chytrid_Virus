@@ -73,7 +73,7 @@ dnapol               -            841 HDU87|HDU87_008518-T1 -           1608   1
 # Pipeline mode:   SCAN
 # Query file:      proteins/Geranomyces_variabilis_JEL0379.LCG.aa.fasta
 # Target file:     db/Guglielmini/NCLDV.hmmb
-# Option settings: hmmscan --domtblout search/protein_NCLDV/Geranomyces_variabilis_JEL0379.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/Guglielmini/NCLDV.hmmb proteins/Geranomyces_variabilis_JEL0379.LCG.aa.fasta 
+# Option settings: hmmscan --domtblout search/protein_NCLDV/Geranomyces_variabilis_JEL0379.LCG.hmmscan.domtbl -E 1e-8 --cpu 8 db/Guglielmini/NCLDV.hmmb proteins/Geranomyces_variabilis_JEL0379.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Tue Apr 21 22:40:31 2020
+# Date:            Tue May 12 16:56:50 2020
 # [ok]

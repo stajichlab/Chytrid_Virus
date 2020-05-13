@@ -7115,7 +7115,7 @@ NCVOG4494            -            517 HDU98|HDU98_012356-T1 -            296    
 # Pipeline mode:   SCAN
 # Query file:      proteins/Podochytrium_sp._JEL0797.LCG.aa.fasta
 # Target file:     db/NCVOG/NCVOG.hmmb
-# Option settings: hmmscan --domtblout search/protein/Podochytrium_sp._JEL0797.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/NCVOG/NCVOG.hmmb proteins/Podochytrium_sp._JEL0797.LCG.aa.fasta 
+# Option settings: hmmscan --domtblout search/protein_NCVOG/Podochytrium_sp._JEL0797.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/NCVOG/NCVOG.hmmb proteins/Podochytrium_sp._JEL0797.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Mon Apr 20 20:15:49 2020
+# Date:            Tue May 12 14:03:10 2020
 # [ok]

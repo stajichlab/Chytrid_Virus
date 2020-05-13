@@ -92,5 +92,5 @@ rnapol2              -           1022 HDU78|HDU78_011350-T1 -           1238    
 # Target file:     db/Guglielmini/NCLDV.hmmb
 # Option settings: hmmscan --domtblout search/protein_NCLDV/Chytriomyces_hyalinus_ARG121.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/Guglielmini/NCLDV.hmmb proteins/Chytriomyces_hyalinus_ARG121.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Tue Apr 21 22:40:19 2020
+# Date:            Sat May  9 13:06:00 2020
 # [ok]

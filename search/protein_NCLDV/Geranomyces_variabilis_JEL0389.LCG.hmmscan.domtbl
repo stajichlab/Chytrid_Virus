@@ -69,7 +69,7 @@ pATPase-polinto      -            231 HDU88|HDU88_008957-T1 -           1402   4
 # Pipeline mode:   SCAN
 # Query file:      proteins/Geranomyces_variabilis_JEL0389.LCG.aa.fasta
 # Target file:     db/Guglielmini/NCLDV.hmmb
-# Option settings: hmmscan --domtblout search/protein_NCLDV/Geranomyces_variabilis_JEL0389.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/Guglielmini/NCLDV.hmmb proteins/Geranomyces_variabilis_JEL0389.LCG.aa.fasta 
+# Option settings: hmmscan --domtblout search/protein_NCLDV/Geranomyces_variabilis_JEL0389.LCG.hmmscan.domtbl -E 1e-8 --cpu 8 db/Guglielmini/NCLDV.hmmb proteins/Geranomyces_variabilis_JEL0389.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Tue Apr 21 22:40:42 2020
+# Date:            Tue May 12 16:57:13 2020
 # [ok]

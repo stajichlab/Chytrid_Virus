@@ -72,5 +72,5 @@ rnapol2              -           1022 HDU97|HDU97_008515-T1 -           1210  1.
 # Target file:     db/Guglielmini/NCLDV.hmmb
 # Option settings: hmmscan --domtblout search/protein_NCLDV/Phlyctochytrium_planicorne_JEL0388.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/Guglielmini/NCLDV.hmmb proteins/Phlyctochytrium_planicorne_JEL0388.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Tue Apr 21 22:41:00 2020
+# Date:            Tue May 12 14:00:18 2020
 # [ok]

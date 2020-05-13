@@ -124,5 +124,5 @@ primase              -            744 HDV00|HDV00_012657-T1 -            915   6
 # Target file:     db/Guglielmini/NCLDV.hmmb
 # Option settings: hmmscan --domtblout search/protein_NCLDV/Rhizophlyctis_rosea_JEL0764.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/Guglielmini/NCLDV.hmmb proteins/Rhizophlyctis_rosea_JEL0764.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Tue Apr 21 22:40:45 2020
+# Date:            Tue May 12 14:30:14 2020
 # [ok]

@@ -81,5 +81,5 @@ tf2s                 -             75 HDU98|HDU98_011851-T1 -            105   3
 # Target file:     db/Guglielmini/NCLDV.hmmb
 # Option settings: hmmscan --domtblout search/protein_NCLDV/Podochytrium_sp._JEL0797.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/Guglielmini/NCLDV.hmmb proteins/Podochytrium_sp._JEL0797.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Tue Apr 21 22:41:08 2020
+# Date:            Tue May 12 14:03:24 2020
 # [ok]

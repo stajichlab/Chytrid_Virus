@@ -79,7 +79,7 @@ rnapol2              -           1022 HDU90|HDU90_009061-T1 -           1206  2.
 # Pipeline mode:   SCAN
 # Query file:      proteins/Geranomyces_variabilis_JEL0567.LCG.aa.fasta
 # Target file:     db/Guglielmini/NCLDV.hmmb
-# Option settings: hmmscan --domtblout search/protein_NCLDV/Geranomyces_variabilis_JEL0567.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/Guglielmini/NCLDV.hmmb proteins/Geranomyces_variabilis_JEL0567.LCG.aa.fasta 
+# Option settings: hmmscan --domtblout search/protein_NCLDV/Geranomyces_variabilis_JEL0567.LCG.hmmscan.domtbl -E 1e-8 --cpu 8 db/Guglielmini/NCLDV.hmmb proteins/Geranomyces_variabilis_JEL0567.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Tue Apr 21 22:40:29 2020
+# Date:            Tue May 12 16:56:39 2020
 # [ok]

@@ -7960,7 +7960,7 @@ NCVOG4494            -            517 HDU78|HDU78_011878-T1 -            319   2
 # Pipeline mode:   SCAN
 # Query file:      proteins/Chytriomyces_hyalinus_ARG121.LCG.aa.fasta
 # Target file:     db/NCVOG/NCVOG.hmmb
-# Option settings: hmmscan --domtblout search/protein/Chytriomyces_hyalinus_ARG121.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/NCVOG/NCVOG.hmmb proteins/Chytriomyces_hyalinus_ARG121.LCG.aa.fasta 
+# Option settings: hmmscan --domtblout search/protein_NCVOG/Chytriomyces_hyalinus_ARG121.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/NCVOG/NCVOG.hmmb proteins/Chytriomyces_hyalinus_ARG121.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Mon Apr 20 16:34:51 2020
+# Date:            Sat May  9 13:05:47 2020
 # [ok]

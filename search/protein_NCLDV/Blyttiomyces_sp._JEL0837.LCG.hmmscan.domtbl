@@ -62,5 +62,5 @@ pATPase-polinto      -            231 HDU76|HDU76_012496-T1 -           1841   2
 # Target file:     db/Guglielmini/NCLDV.hmmb
 # Option settings: hmmscan --domtblout search/protein_NCLDV/Blyttiomyces_sp._JEL0837.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/Guglielmini/NCLDV.hmmb proteins/Blyttiomyces_sp._JEL0837.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Tue Apr 21 22:40:08 2020
+# Date:            Tue May 12 14:08:02 2020
 # [ok]

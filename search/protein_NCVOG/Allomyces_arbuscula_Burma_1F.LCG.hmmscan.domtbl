@@ -4641,7 +4641,7 @@ NCVOG1358            -            501 GGF31|GGF31_009039-T1 -            995   2
 # Pipeline mode:   SCAN
 # Query file:      proteins/Allomyces_arbuscula_Burma_1F.LCG.aa.fasta
 # Target file:     db/NCVOG/NCVOG.hmmb
-# Option settings: hmmscan --domtblout search/protein/Allomyces_arbuscula_Burma_1F.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/NCVOG/NCVOG.hmmb proteins/Allomyces_arbuscula_Burma_1F.LCG.aa.fasta 
+# Option settings: hmmscan --domtblout search/protein_NCVOG/Allomyces_arbuscula_Burma_1F.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/NCVOG/NCVOG.hmmb proteins/Allomyces_arbuscula_Burma_1F.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Mon Apr 20 16:22:41 2020
+# Date:            Sat May  9 12:29:45 2020
 # [ok]

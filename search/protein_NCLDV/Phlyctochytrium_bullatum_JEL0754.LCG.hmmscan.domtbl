@@ -69,5 +69,5 @@ primase              -            744 HDU96|HDU96_010260-T1 -            329   4
 # Target file:     db/Guglielmini/NCLDV.hmmb
 # Option settings: hmmscan --domtblout search/protein_NCLDV/Phlyctochytrium_bullatum_JEL0754.LCG.hmmscan.domtbl -E 1e-8 --cpu 2 db/Guglielmini/NCLDV.hmmb proteins/Phlyctochytrium_bullatum_JEL0754.LCG.aa.fasta 
 # Current dir:     /bigdata/stajichlab/shared/projects/Chytrid/Chytrid_Virus
-# Date:            Tue Apr 21 22:41:04 2020
+# Date:            Tue May 12 14:03:04 2020
 # [ok]
