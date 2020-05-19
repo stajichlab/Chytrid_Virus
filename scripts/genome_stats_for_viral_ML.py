@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 
 import sys, os, csv, argparse, re
@@ -7,14 +8,78 @@ import numpy as np
 import numpy.ma as ma
 from scipy.stats.mstats import mode, gmean, hmean
 
+ribosomal_evalue_cutoff = 1e-10
+mitochondria_evalue_cutoff = 1e-5
 parser = argparse.ArgumentParser(description='summary stats to train on viral genomes')
 
 parser.add_argument('-i','--infile', type=argparse.FileType('r'),nargs='?',default=sys.stdin,
                     help='Input file for reading genome DNA (FASTA)')
 parser.add_argument('-o','--outbase',required=True,help="Output file base")
 parser.add_argument('-p','--prodigal',type=argparse.FileType('r'),required=True,help="Prodigal GFF")
-
+parser.add_argument('-sd','--search_ncldv',type=argparse.FileType('r'),required=False,help="NCLDV TFASTX TAB")
+parser.add_argument('-sv','--search_ncvog',type=argparse.FileType('r'),required=False,help="NCVOG TFASTX TAB")
+parser.add_argument('-rrna','--ribosomal',type=argparse.FileType('r'),required=False,help="rRNA BLASTN TAB")
+parser.add_argument('-mt','--mitochondria',type=argparse.FileType('r'),required=False,help="mitochondria TFASTX TAB")
 args = parser.parse_args()
+
+MT = {}
+if args.mitochondria:
+    search = csv.reader(args.mitochondria,delimiter="\t")
+    for row in search:
+        evalue = float(row[10])
+        if evalue < mitochondria_evalue_cutoff:
+            if row[1] not in MT or MT[row[1]][2] < row[2]:
+                MT[row[1]] = row
+
+rRNA = {}
+if args.ribosomal:
+    search = csv.reader(args.ribosomal,delimiter="\t")
+    for row in search:
+        evalue = float(row[10])
+        if evalue < ribosomal_evalue_cutoff:
+            if row[0] not in rRNA or rRNA[row[0]][2] < row[2]:
+                rRNA[row[0]] = row
+
+ncldvhits = {}
+ncvoghits = {}
+if args.search_ncldv:
+    search = csv.reader(args.search_ncldv,delimiter="\t")
+
+    for row in search:
+        row[0] = re.sub(r'-consensus','',row[0])
+        evalue = float(row[10])
+        if row[1] not in ncldvhits:
+            ncldvhits[row[1]] = {}
+        if (row[0] not in ncldvhits[row[1]] or
+            ncldvhits[row[1]][row[0]]['evalue'] > evalue):
+            score = 0.0
+            if row[11] is not '.':
+                score = float(score)
+            ncldvhits[row[1]][row[0]] = {'pid': float(row[2]),
+                                        'evalue': evalue,
+                                        'score': score,
+                                        'qalnlen': abs(int(row[7]) - int(row[7]))+1,
+                                        }
+
+
+if args.search_ncldv:
+    search = csv.reader(args.search_ncvog,delimiter="\t")
+
+    for row in search:
+        row[0] = re.sub(r'-consensus','',row[0])
+        evalue = float(row[10])
+        if row[1] not in ncvoghits:
+            ncvoghits[row[1]] = {}
+        if (row[0] not in ncvoghits[row[1]] or
+            ncvoghits[row[1]][row[0]]['evalue'] > evalue):
+            score = 0.0
+            if row[11] is not '.':
+                score = float(score)
+            ncvoghits[row[1]][row[0]] = {'pid': float(row[2]),
+                                        'evalue': evalue,
+                                        'score':  score,
+                                        'qalnlen': abs(int(row[7]) - int(row[7]))+1,
+                                        }
 
 contigs = {}
 total_length = 0
@@ -29,8 +94,32 @@ for record in SeqIO.parse(args.infile, "fasta") :
             'LENGTH': len(record),
             'COVERAGE': coverage,
             'GC': "%.2f"%(GC(record.seq)),
+            'ORF_COUNT': 0,
+            'ORF_PER_KB': 0,
+            'ORF_MEAN':   0,
+            'ORF_MEDIAN': 0,
+            'ORF_PLUS_STRAND_RATIO': 1,
+            'INTERGENIC_MEAN': 0,
+            'INTERGENIC_MEDIAN': 0,
+            'FRACTION_OVERLAPPING_ORFS': 0,
+            'NCVOG_HITS': 0,
+            'NCLDV_HITS': 0,
+            'CAPSID': 0,
+            'RIBOSOMAL': 0,
+            'MT': 0,
             }
+        if record.id in ncvoghits:
+            contigs[record.id]['NCVOG_HITS'] = len(ncvoghits[record.id])
+        if record.id in ncldvhits:
+            contigs[record.id]['NCLDV_HITS'] = len(ncldvhits[record.id])
+            if 'capsid' in ncldvhits[record.id]:
+                contigs[record.id]['CAPSID'] = 1
+        if record.id in rRNA:
+            contigs[record.id]['RIBOSOMAL'] = 1
+        if record.id in MT:
+            contigs[record.id]['MT'] = 1
         total_length += len(record)
+
 
 gff_parse = csv.reader(args.prodigal,delimiter="\t")
 ORF_set = {}
@@ -49,6 +138,9 @@ for ORF in gff_parse:
         strand = -1
 
     ORF_count += 1
+    score = 0.0
+    if ORF[5] is not '.':
+        score = float(ORF[5])
     ORF_set[chrom].append({'length': abs(stop - start) + 1,
                           'strand': strand, 'score': float(ORF[5]),
                           'start': start, 'stop': stop
@@ -66,7 +158,7 @@ for ctg in ORF_set:
     contigs[ctg]['FRACTION_OVERLAPPING_ORFS']  = 0
     for ORF in sorted(ORF_set[ctg], key=lambda orf: orf['start']):
         contigs[ctg]['ORF_COUNT'] += 1
-        ctgorfs.append(ORF['length']) # keep track of all the lengths
+        ctgorfs.append(ORF['length'] / 1000) # keep track of all the lengths in kb
 
         # plus vs minus strand ratio calculation
         if ORF['strand'] == 1:
@@ -88,8 +180,8 @@ for ctg in ORF_set:
         contigs[ctg]['ORF_PLUS_STRAND_RATIO'] = 'NA'
     ctgorfs_np = np.array(ctgorfs)
     contigs[ctg]['ORF_PER_KB'] = "%.2f"%(1000 * contigs[ctg]['ORF_COUNT'] / contigs[ctg]['LENGTH'])
-    contigs[ctg]['ORF_MEAN'] = "%.2f"%(np.mean(ctgorfs_np))
-    contigs[ctg]['ORF_MEDIAN'] = "%.2f"%(np.median(ctgorfs_np))
+    contigs[ctg]['ORF_MEAN'] = "%.3f"%(np.mean(ctgorfs_np))
+    contigs[ctg]['ORF_MEDIAN'] = "%.3f"%(np.median(ctgorfs_np))
     intergenic_np = np.array(intergenic)
     contigs[ctg]['INTERGENIC_MEAN'] = "%.2f"%(np.median(intergenic))
     contigs[ctg]['INTERGENIC_MEDIAN'] = "%.2f"%(np.median(intergenic))
@@ -100,7 +192,7 @@ sys.stderr.write("There are %d contigs total length = %d\n"%(len(contigs),total_
 sys.stderr.write("There are %d ORFs\n"%(ORF_count))
 
 with open(args.outbase + ".sum_stat.tsv","w",newline='') as sumstat:
-    fieldnames = ['ID', 'LENGTH','GC', 'COVERAGE','ORF_COUNT','ORF_PER_KB','ORF_MEAN','ORF_MEDIAN','ORF_SD','ORF_PLUS_STRAND_RATIO','INTERGENIC_MEAN','INTERGENIC_MEDIAN','INTERGENIC_SD','FRACTION_OVERLAPPING_ORFS']
+    fieldnames = ['ID', 'LENGTH','GC', 'COVERAGE','ORF_COUNT','ORF_PER_KB','ORF_MEAN','ORF_MEDIAN','ORF_PLUS_STRAND_RATIO','INTERGENIC_MEAN','INTERGENIC_MEDIAN','FRACTION_OVERLAPPING_ORFS','NCLDV_HITS','NCVOG_HITS','CAPSID','RIBOSOMAL','MT']
     outtsv = csv.DictWriter(sumstat,delimiter="\t",quoting=csv.QUOTE_MINIMAL,fieldnames=fieldnames)
     outtsv.writeheader()
     for ctgname in contigs:
