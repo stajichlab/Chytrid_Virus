@@ -23,14 +23,16 @@ parser.add_argument('--out',default="results",help='Out folder')
 args = parser.parse_args()
 
 topdir = os.path.join(top_search_dir)
-if args.prediction is 'prodigal':
-    if args.unfilt:
+
+if args.prediction == 'prodigal':
+    if args.nofilter:
         topdir = os.path.join(top_search_dir,"%s_%s_nofilter"%(args.prediction,args.library))
     else:
         topdir = os.path.join(top_search_dir,"%s_%s"%(args.prediction,args.library))
 else:
     topdir = os.path.join(top_search_dir,"%s_%s"%("protein",args.library))
 
+print("topdir is %s"%(topdir))
 outScore = os.path.join(args.out,"%s_protein_%s_score.tsv"%(args.library,args.prediction))
 outCtg = os.path.join(args.out,"%s_protein_%s_ctg.tsv"%(args.library,args.prediction))
 
@@ -50,7 +52,7 @@ namepref  = re.compile(r'^[^\|]+\|\S+')
 for infile in os.listdir(topdir):
     if not infile.endswith(".domtbl"):
         continue
-    org = re.sub('(\.LCG)?\.hmmscan\.domtbl$','',infile)
+    org = re.sub('(\.LCG)?\.hmmsearch\.domtbl$','',infile)
     if org in jginames:
         org = jginames[org]
     orgs[org] = 1
@@ -85,7 +87,7 @@ for infile in os.listdir(args.genesgff):
         inspecies = jginames[inspecies]
 
     if inspecies not in orgs:
-        print("skipping species %s not in the hmmsearch results"%(inspecies))
+#        print("skipping species %s not in the hmmsearch results"%(inspecies))
         continue
 
     print(inspecies)
@@ -148,6 +150,8 @@ with open(outScore,"w") as outScorefh, open(outCtg,"w") as outCtgfh:
         row = [fam]
         rowctg = [fam]
         for org in orgnames:
+            if org not in gene2loc:
+                continue
             if org in table[fam]:
                 table[fam][org].sort(key=lambda x: x[1])
                 besthit = table[fam][org][0]

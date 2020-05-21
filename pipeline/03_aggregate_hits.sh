@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-#SBATCH -p short
+#SBATCH -p short --mem 8gb --out logs/aggregate.log
 
 ./scripts/hmmsearch_table.py --prediction prodigal --library NCLDV
 ./scripts/hmmsearch_table.py --prediction prodigal --library NCVOG

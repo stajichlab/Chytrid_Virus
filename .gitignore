@@ -2,3 +2,4 @@
 *.done
 *.hmmscan.log
 *.log
+.Rproj.user
