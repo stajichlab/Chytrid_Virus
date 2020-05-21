@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 #SBATCH -p short -N 1 -n 4 --mem 2gb --out logs/pepsearch.%a.log
 
-module load hmmer
+module load hmmer/3.3
 
 CPUS=$SLURM_CPUS_ON_NODE
 if [ -z $CPUS ]; then

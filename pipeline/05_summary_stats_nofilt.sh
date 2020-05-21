@@ -11,6 +11,7 @@ OUTPRED=results/prodigal_nofilter
 OUTREPORT=results/genome_stats_nofilter
 SEARCHDLV=search/prodigal_NCLDV
 SEARCHVOG=search/prodigal_NCVOG
+SEARCHPFAM=search/prodigal_pfamhits_nofilter
 SEARCHRRNA=search/rRNA
 FUNGIRRNADB=db/rRNA/fungi.rRNA
 SEARCHMT=search/MT
@@ -60,6 +61,9 @@ if [ -s $SEARCHDLV/$BASE.hmmsearch.domtbl ]; then
   EXTRA="-sd $SEARCHDLV/$BASE.hmmsearch.domtbl"
 fi
 if [ -s $SEARCHVOG/$BASE.hmmsearch.domtbl ]; then
-  EXTRA="$EXTRA -sv $SEARCHVOG/$BASE.hmmsearch.domtbl"
+  EXTRA+=" -sv $SEARCHVOG/$BASE.hmmsearch.domtbl"
+fi
+if [ -s $SEARCHPFAM/$BASE.pfamscan.domtbl ]; then
+  EXTRA+=" --pfam $SEARCHPFAM/$BASE.pfamscan.domtbl"
 fi
 python3 scripts/genome_stats_for_viral_ML.py --prodigal $OUTPRED/$BASE.prodigal.gff --outbase $OUTREPORT/$BASE --ribosomal $SEARCHRRNA/$BASE.rRNA_search.tab --mitochondria $SEARCHMT/$BASE.MT_search.tab $EXTRA -i $INGENOME
