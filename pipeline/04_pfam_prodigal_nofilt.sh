@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-#SBATCH  -p intel --ntasks 2 --mem 32gb --out logs/prodigal_pfam_nofilt.%a.log --time 12:00:00
+#SBATCH  -p intel --ntasks 64 --mem 24gb --out logs/prodigal_pfam_nofilt.%a.log --time 12:00:00
 
 module load hmmer/3.3-mpi
 module load db-pfam
@@ -32,5 +32,5 @@ mkdir -p $OUT
 OUTFILE=$OUT/${BASE}.pfamscan
 
 if [[ ! -f $OUTFILE.done || $TARGET -nt $OUTFILE.done ]]; then
-  hmmsearch --cpu $CPU --cut_ga --domtbl $OUTFILE.domtbl -o $OUTFILE.log $PFAM $TARGET
+  srun hmmsearch --cpu $CPU --cut_ga --domtbl $OUTFILE.domtbl -o $OUTFILE.log $PFAM $TARGET
 fi
