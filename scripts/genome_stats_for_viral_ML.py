@@ -8,6 +8,32 @@ import numpy as np
 import numpy.ma as ma
 from scipy.stats.mstats import mode, gmean, hmean
 
+def parse_hmmer_dombl(filehandle):
+    "Parse HMMER hmmsearch domtbl for VOG/DLV db search"
+    table = {}
+    for line in args.search_ncldv:
+        if line[0].startswith("#"):
+            continue
+        line = line.strip("\n")
+        row  = line.split()
+        for row in search:
+            hit = row[0]
+            evalue = float(row[6])
+            q = row[1]
+            if hit not in table:
+                table[hit] = {}
+            if (q not in table[hit] or
+                table[hit][q]['evalue'] > evalue):
+                score = 0.0
+                if row[7] is not '.':
+                    score = float(row[7])
+                table[row[1]][row[0]] = {'evalue': evalue,
+                                            'score': score,
+                                            'qalnlen': abs(int(row[20]) - int(row[19]))+1,
+                                            }
+        return table
+
+
 ribosomal_evalue_cutoff = 1e-10
 mitochondria_evalue_cutoff = 1e-5
 parser = argparse.ArgumentParser(description='summary stats to train on viral genomes')
@@ -16,10 +42,12 @@ parser.add_argument('-i','--infile', type=argparse.FileType('r'),nargs='?',defau
                     help='Input file for reading genome DNA (FASTA)')
 parser.add_argument('-o','--outbase',required=True,help="Output file base")
 parser.add_argument('-p','--prodigal',type=argparse.FileType('r'),required=True,help="Prodigal GFF")
-parser.add_argument('-sd','--search_ncldv',type=argparse.FileType('r'),required=False,help="NCLDV TFASTX TAB")
-parser.add_argument('-sv','--search_ncvog',type=argparse.FileType('r'),required=False,help="NCVOG TFASTX TAB")
+parser.add_argument('-sd','--search_ncldv',type=argparse.FileType('r'),required=False,help="NCLDV HMMER domtbl (from prodigal peps)")
+parser.add_argument('-sv','--search_ncvog',type=argparse.FileType('r'),required=False,help="NCVOG HMMER domtbl (from prodigal peps)")
+parser.add_argument('-sv','--pfam',type=argparse.FileType('r'),required=False,help="Pfam HMMER domtbl (from prodigal peps)")
 parser.add_argument('-rrna','--ribosomal',type=argparse.FileType('r'),required=False,help="rRNA BLASTN TAB")
 parser.add_argument('-mt','--mitochondria',type=argparse.FileType('r'),required=False,help="mitochondria TFASTX TAB")
+
 args = parser.parse_args()
 
 MT = {}
@@ -40,46 +68,10 @@ if args.ribosomal:
             if row[0] not in rRNA or rRNA[row[0]][2] < row[2]:
                 rRNA[row[0]] = row
 
-ncldvhits = {}
-ncvoghits = {}
-if args.search_ncldv:
-    search = csv.reader(args.search_ncldv,delimiter="\t")
-
-    for row in search:
-        row[0] = re.sub(r'-consensus','',row[0])
-        evalue = float(row[10])
-        if row[1] not in ncldvhits:
-            ncldvhits[row[1]] = {}
-        if (row[0] not in ncldvhits[row[1]] or
-            ncldvhits[row[1]][row[0]]['evalue'] > evalue):
-            score = 0.0
-            if row[11] is not '.':
-                score = float(score)
-            ncldvhits[row[1]][row[0]] = {'pid': float(row[2]),
-                                        'evalue': evalue,
-                                        'score': score,
-                                        'qalnlen': abs(int(row[7]) - int(row[7]))+1,
-                                        }
+ncldvhits = parse_hmmer_dombl(args.search_ncldv)
+ncvoghits = parse_hmmer_dombl(args.search_ncvog)
 
 
-if args.search_ncldv:
-    search = csv.reader(args.search_ncvog,delimiter="\t")
-
-    for row in search:
-        row[0] = re.sub(r'-consensus','',row[0])
-        evalue = float(row[10])
-        if row[1] not in ncvoghits:
-            ncvoghits[row[1]] = {}
-        if (row[0] not in ncvoghits[row[1]] or
-            ncvoghits[row[1]][row[0]]['evalue'] > evalue):
-            score = 0.0
-            if row[11] is not '.':
-                score = float(score)
-            ncvoghits[row[1]][row[0]] = {'pid': float(row[2]),
-                                        'evalue': evalue,
-                                        'score':  score,
-                                        'qalnlen': abs(int(row[7]) - int(row[7]))+1,
-                                        }
 
 contigs = {}
 total_length = 0
@@ -152,7 +144,8 @@ for ctg in ORF_set:
         exit()
     ctgorfs = []
     intergenic = []
-    contigs[ctg]['ORF_COUNT']        = 0
+    contigs[ctg]['ORF_COUNT']            = 0
+    contigs[ctg]['NUM_ORF_NO_PFAM_HITS'] = 'NA'
     minusgenes = plusgenes = 0
     last_stop = 1
     contigs[ctg]['FRACTION_OVERLAPPING_ORFS']  = 0
@@ -192,7 +185,9 @@ sys.stderr.write("There are %d contigs total length = %d\n"%(len(contigs),total_
 sys.stderr.write("There are %d ORFs\n"%(ORF_count))
 
 with open(args.outbase + ".sum_stat.tsv","w",newline='') as sumstat:
-    fieldnames = ['ID', 'LENGTH','GC', 'COVERAGE','ORF_COUNT','ORF_PER_KB','ORF_MEAN','ORF_MEDIAN','ORF_PLUS_STRAND_RATIO','INTERGENIC_MEAN','INTERGENIC_MEDIAN','FRACTION_OVERLAPPING_ORFS','NCLDV_HITS','NCVOG_HITS','CAPSID','RIBOSOMAL','MT']
+    fieldnames = ['ID', 'LENGTH','GC', 'COVERAGE','ORF_COUNT','ORF_PER_KB','ORF_MEAN','ORF_MEDIAN','ORF_PLUS_STRAND_RATIO',
+    'INTERGENIC_MEAN','INTERGENIC_MEDIAN','FRACTION_OVERLAPPING_ORFS','NCLDV_HITS','NCVOG_HITS','CAPSID','RIBOSOMAL','MT',
+    'NUM_ORF_NO_PFAM_HITS']
     outtsv = csv.DictWriter(sumstat,delimiter="\t",quoting=csv.QUOTE_MINIMAL,fieldnames=fieldnames)
     outtsv.writeheader()
     for ctgname in contigs:
