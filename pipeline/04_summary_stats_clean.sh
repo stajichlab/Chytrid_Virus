@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
-#SBATCH -p short -N 1 -n 2 --mem 4gb --out logs/summary_stats_nofilt.%a.log
+#SBATCH -p short -N 1 -n 2 --mem 4gb --out logs/summary_stats.%a.log
 
 module load prodigal
 module unload miniconda2
 module load miniconda3
 # need python 3
 
-GENOMES=genomes_nofilter
-OUTPRED=results/prodigal_nofilter
+GENOMES=genomes
+OUTPRED=results/prodigal
 OUTREPORT=results/genome_stats_nofilter
-SEARCHDLV=search/prodigal_NCLDV
-SEARCHVOG=search/prodigal_NCVOG
+SEARCHDLV=search/genome_NCLDV
+SEARCHVOG=search/genome_NCVOG
 SEARCHRRNA=search/rRNA
 FUNGIRRNADB=db/rRNA/fungi.rRNA
 SEARCHMT=search/MT
@@ -31,12 +31,12 @@ if [ -z $N ]; then
     fi
 fi
 
-INGENOME=$(ls $GENOMES/*.spades.fasta | sed -n ${N}p)
-BASE=$(basename $INGENOME .spades.fasta)
+INGENOME=$(ls $GENOMES/*.sorted.fasta | sed -n ${N}p)
+BASE=$(basename $INGENOME .sorted.fasta)
 
 echo $BASE
 if [ ! -f $INGENOME ]; then
-  echo "cannot find a genome in $GENOMES for *.spades.fasta.gz"
+  echo "cannot find a genome in $GENOMES for *.sorted.fasta"
   exit
 fi
 if [[ ! -f $OUTPRED/$BASE.prodigal.faa || $INGENOME -nt $OUTPRED/$BASE.prodigal.faa ]]; then
@@ -55,11 +55,16 @@ if [[ ! -s $SEARCHMT/$BASE.MT_search.tab ]]; then
   module unload fasta
 fi
 
-EXTRA=""
-if [ -s $SEARCHDLV/$BASE.hmmsearch.domtbl ]; then
-  EXTRA="-sd $SEARCHDLV/$BASE.hmmsearch.domtbl"
-fi
-if [ -s $SEARCHVOG/$BASE.hmmsearch.domtbl ]; then
-  EXTRA="$EXTRA -sv $SEARCHVOG/$BASE.hmmsearch.domtbl"
-fi
+# use the protein hmmsearch and GFF3
+
+#EXTRA=""
+#if [ -s $SEARCHDLV/$BASE.TFASTX.tab ]; then
+#  EXTRA="$EXTRA -sd $SEARCHDLV/$BASE.TFASTX.tab"
+#fi
+#if [ -s $SEARCHVOG/$BASE.TFASTX.tab  ]; then
+#  EXTRA="$EXTRA -sv $SEARCHVOG/$BASE.TFASTX.tab"
+#fi
+
+
+
 python3 scripts/genome_stats_for_viral_ML.py --prodigal $OUTPRED/$BASE.prodigal.gff --outbase $OUTREPORT/$BASE --ribosomal $SEARCHRRNA/$BASE.rRNA_search.tab --mitochondria $SEARCHMT/$BASE.MT_search.tab $EXTRA -i $INGENOME

@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-#SBATCH -p short -N 1 -n 4 --mem 2gb --out logs/pepsearch.%a.log
+#SBATCH -p short -N 1 -n 4 --mem 2gb --out logs/prodigal_pep_search_ref.%a.log
 
 module load hmmer
 
@@ -17,22 +17,37 @@ if [ -z $N ]; then
         exit
     fi
 fi
-PEP=proteins
-TARGET=$(ls $PEP/*.aa.fasta | sed -n ${N}p)
 
+
+GENOMES=reference_genomes/DNA
+OUTPRED=results/prodigal_reference
+
+TARGET=$(ls $GENOMES/*.nt.fasta | sed -n ${N}p)
+BASE=$(basename $TARGET .nt.fasta)
+TARGET=$OUTPRED/$BASE.prodigal.faa
+if [[ ! -f $TARGET || $INGENOME -nt $TARGET ]]; then
+  if [ -f $TARGET.gz ]; then
+    pigz -k $OUTPRED/$BASE.prodigal.*.gz
+  else
+	   prodigal -a $TARGET -d $OUTPRED/$BASE.prodigal.cds -f gff -i $INGENOME -p meta -o $OUTPRED/$BASE.prodigal.gff
+   fi
+fi
+
+OUT=search/prodigal_NCLDV
 QUERY=db/Guglielmini/NCLDV.hmmb
-OUT=search/protein_NCLDV
 mkdir -p $OUT
-OUTFILE=$OUT/$(basename $TARGET .aa.fasta).hmmsearch
+OUTFILE=$OUT/${BASE}.hmmsearch
+
 if [[ ! -f $OUTFILE.done || $TARGET -nt $OUTFILE.done ]]; then
         hmmsearch -E 1e-8 --cpu $CPU --domtblout $OUTFILE.domtbl $QUERY $TARGET > $OUTFILE.log
-  touch $OUTFILE.done
+        touch $OUTFILE.done
 fi
 
 QUERY=db/NCVOG/NCVOG.hmmb
-OUT=search/protein_NCVOG
+OUT=search/prodigal_NCVOG
 mkdir -p $OUT
-OUTFILE=$OUT/$(basename $TARGET .aa.fasta).hmmsearch
+
+OUTFILE=$OUT/${BASE}.hmmsearch
 
 if [[ ! -f $OUTFILE.done || $TARGET -nt $OUTFILE.done ]]; then
 	hmmsearch -E 1e-8 --cpu $CPU --domtblout $OUTFILE.domtbl $QUERY $TARGET > $OUTFILE.log
