@@ -25,6 +25,6 @@ mkdir -p $OUT
 OUTFILE=$OUT/${BASE}.pfamscan
 
 if [[ ! -f $OUTFILE.done || $TARGET -nt $OUTFILE.done ]]; then
-  srun hmmsearch --mpi --cut_ga --domtbl $OUTFILE.domtbl -o $OUTFILE.log $PFAM $TARGET
+  time srun hmmsearch --mpi --cut_ga --domtbl $OUTFILE.domtbl -o $OUTFILE.log $PFAM $TARGET
   touch $OUTFILE.done
 fi

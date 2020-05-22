@@ -4,12 +4,6 @@
 module load hmmer/3.3-mpi
 module load db-pfam
 
-CPUS=$SLURM_CPUS_ON_NODE
-if [ -z $CPUS ]; then
- CPUS=1
-fi
-CPU=$CPUS
-
 N=${SLURM_ARRAY_TASK_ID}
 
 if [ -z $N ]; then
@@ -32,5 +26,5 @@ mkdir -p $OUT
 OUTFILE=$OUT/${BASE}.pfamscan
 
 if [[ ! -f $OUTFILE.done || $TARGET -nt $OUTFILE.done ]]; then
-  srun hmmsearch --cpu $CPU --cut_ga --domtbl $OUTFILE.domtbl -o $OUTFILE.log $PFAM $TARGET
+  time srun hmmsearch --mpi --cut_ga --domtbl $OUTFILE.domtbl -o $OUTFILE.log $PFAM $TARGET
 fi
