@@ -3,3 +3,11 @@
 *.hmmscan.log
 *.log
 .Rproj.user
+scripts/init_jgi_download.sh
+genome_stats_nofilter.all.tsv
+*.cds
+*.gff
+*.gff3
+*.faa
+*.rRNA_search.tab
+*.MT_search.tab

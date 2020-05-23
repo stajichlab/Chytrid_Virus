@@ -166,13 +166,13 @@ for record in SeqIO.parse(args.infile, "fasta") :
             'FRACTION_OVERLAPPING_ORFS': 0,
             'NCVOG_HITS': 0,
             'NCLDV_HITS': 0,
+            'NCVOG_PERCENT': 0,
+            'NCLDV_PERCENT': 0,
             'CAPSID': 0,
             'RIBOSOMAL': 0,
             'MT': 0,
-            'NUM_ORF_NO_PFAM_HITS': 0,
-            'FRAC_ORF_PFAM_HITS': 0,
-            'NCVOG_HITS_FRAC': 0,
-            'NCLDV_HITS_FRAC': 0
+            'PFAM_HITS': 0,
+            'PFAM_PERCENT': 0
             }
 
         if record.id in rRNA:
@@ -194,7 +194,7 @@ for ctg in ORF_set:
     intergenic = []
     minusgenes = plusgenes = 0
     last_stop = 1
-
+    last_strand = 1
     for ORF in sorted(ORF_set[ctg], key=lambda orf: orf['start']):
         contigs[ctg]['ORF_COUNT'] += 1
         ctgorfs.append(ORF['length'] / 1000) # keep track of all the lengths in kb
@@ -207,20 +207,22 @@ for ctg in ORF_set:
 
         # examine intergenic space
         if ORF['start'] < last_stop:
-            contigs[ctg]['FRACTION_OVERLAPPING_ORFS'] += 1
+            if ORF['strand'] == last_strand:
+                contigs[ctg]['FRACTION_OVERLAPPING_ORFS'] += 1
         else:
             intergenic.append( ORF['start'] - last_stop + 1)
         last_stop = ORF['stop']
+        last_strand = ORF['strand']
 
         if ORF['name'] in ncvoghits:
             contigs[ctg]['NCVOG_HITS'] += 1
         if ORF['name'] in ncldvhits:
             contigs[ctg]['NCLDV_HITS'] += 1
-            print(ncldvhits[ORF['name']].keys())
+            #print(ncldvhits[ORF['name']].keys())
             if 'capsid' in ncldvhits[ORF['name']]:
                 contigs[ctg]['CAPSID'] += 1
         if ORF['name'] in pfamhits:
-            contigs[ctg]['NUM_ORF_NO_PFAM_HITS'] += 1
+            contigs[ctg]['PFAM_HITS'] += 1
 
     # calculate ratio of + to - strand genes on a contig: total number of plus (calculated)
     if plusgenes > 0 and minusgenes > 0:
@@ -232,17 +234,17 @@ for ctg in ORF_set:
     contigs[ctg]['ORF_MEAN'] = "%.3f"%(np.mean(ctgorfs_np))
     contigs[ctg]['ORF_MEDIAN'] = "%.3f"%(np.median(ctgorfs_np))
     intergenic_np = np.array(intergenic)
-    contigs[ctg]['INTERGENIC_MEAN'] = "%.2f"%(np.median(intergenic))
+    contigs[ctg]['INTERGENIC_MEAN'] = "%.2f"%(np.mean(intergenic))
     contigs[ctg]['INTERGENIC_MEDIAN'] = "%.2f"%(np.median(intergenic))
     if contigs[ctg]['ORF_COUNT'] > 0:
         contigs[ctg]['FRACTION_OVERLAPPING_ORFS'] = "%.2f"%(contigs[ctg]['FRACTION_OVERLAPPING_ORFS'] / contigs[ctg]['ORF_COUNT'])
 
     if contigs[ctg]['ORF_COUNT'] > 0:
         # how many ORFs (fraction) are VOGs or LDV  hits
-        contigs[ctg]['NCVOG_HITS_FRAC'] = sprintf("%.2f"%(contigs[ctg]['NCVOG_HITS']/ contigs[ctg]['ORF_COUNT']))
-        contigs[ctg]['NCLDV_HITS_FRAC'] = sprintf("%.2f"%(contigs[ctg]['NCLDV_HITS']/ contigs[ctg]['ORF_COUNT']))
+        contigs[ctg]['NCVOG_PERCENT'] = "%.4f"%(100.0 * contigs[ctg]['NCVOG_HITS']/ contigs[ctg]['ORF_COUNT'])
+        contigs[ctg]['NCLDV_PERCENT'] = "%.4f"%(100.0 * contigs[ctg]['NCLDV_HITS']/ contigs[ctg]['ORF_COUNT'])
         # how many ORFs (fraction) have PFAM hits
-        contigs[ctg]['FRAC_ORF_PFAM_HITS'] = sprintf("%.2f"%(contigs[ctg]['NUM_ORF_NO_PFAM_HITS'] / contigs[ctg]['ORF_COUNT']))
+        contigs[ctg]['PFAM_PERCENT'] = "%.4f"%(100.0 * contigs[ctg]['PFAM_HITS'] / contigs[ctg]['ORF_COUNT'])
 
 
 sys.stderr.write("There are %d contigs total length = %d\n"%(len(contigs),total_length))
@@ -250,8 +252,10 @@ sys.stderr.write("There are %d contigs total length = %d\n"%(len(contigs),total_
 
 with open(args.outbase + ".sum_stat.tsv","w",newline='') as sumstat:
     fieldnames = ['ID', 'LENGTH','GC', 'COVERAGE','ORF_COUNT','ORF_PER_KB','ORF_MEAN','ORF_MEDIAN','ORF_PLUS_STRAND_RATIO',
-    'INTERGENIC_MEAN','INTERGENIC_MEDIAN','FRACTION_OVERLAPPING_ORFS','NCLDV_HITS','NCLDV_HITS_FRAC,''NCVOG_HITS','NCVOG_HITS_FRAC','CAPSID','RIBOSOMAL','MT',
-    'NUM_ORF_NO_PFAM_HITS','FRAC_ORF_PFAM_HITS']
+    'INTERGENIC_MEAN','INTERGENIC_MEDIAN','FRACTION_OVERLAPPING_ORFS',
+    'NCLDV_HITS','NCLDV_PERCENT','NCVOG_HITS','NCVOG_PERCENT','CAPSID',
+    'RIBOSOMAL','MT',
+    'PFAM_HITS','PFAM_PERCENT']
     outtsv = csv.DictWriter(sumstat,delimiter="\t",quoting=csv.QUOTE_MINIMAL,fieldnames=fieldnames)
     outtsv.writeheader()
     for ctgname in contigs:

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#SBATCH -p short -N 1 -n 24 --mem 4gb --out logs/summary_stats.log
+#SBATCH -p short -N 1 -n 24 --mem 24gb --out logs/summary_stats.log
 
 module load prodigal
 module unload miniconda2
@@ -18,9 +18,6 @@ export JOBCPU=2
 run_sumstats() {
   FUNGIMTPEP=db/MT/MT_peps.fa
   FUNGIRRNADB=db/rRNA/fungi.rRNA
-  echo "PRED=$OUTPRED"
-  echo "REPORT=$OUTREPORT"
-  echo "SEARCHDLV=$SEARCHDLV"
   INGENOME=$1
   EXT=$2
   BASE=$(basename $INGENOME $EXT)
@@ -58,9 +55,10 @@ run_sumstats() {
 
   #echo "searching for $SEARCHPFAM/$BASE.pfamscan.domtbl"
   #echo "EXTRA $EXTRA"
+  echo "processing $1"
   python3 scripts/genome_stats_for_viral_ML.py --prodigal $OUTPRED/$BASE.prodigal.gff --outbase $OUTREPORT/$BASE \
     --ribosomal $SEARCHRRNA/$BASE.rRNA_search.tab -mt $SEARCHMT/$BASE.MT_search.tab $EXTRA -i $INGENOME
-   echo in my_func $1
+ echo "[done]"
  }
 export -f run_sumstats
 # clean/sorted genomes
@@ -102,3 +100,6 @@ export SEARCHMT=search/MT_nofilter
 
 mkdir -p $OUTREPORT $OUTPRED $SEARCHRRNA $SEARCHMT
 parallel --env run_sumstats --env JOBCPU --env SEARCHRRNA --env OUTPRED --env OUTREPORT --env SEARCHMT --env SEARCHDLV --env SEARCHVOG --env SEARCHPFAM -j $CPU run_sumstats {} .spades.fasta ::: $(ls $GENOMES/*.spades.fasta)
+
+export MC_CORES=$CPUS
+Rscripts Rscript/compare_stats.R
