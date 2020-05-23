@@ -33,8 +33,11 @@ else:
     topdir = os.path.join(top_search_dir,"%s_%s"%("protein",args.library))
 
 print("topdir is %s"%(topdir))
-outScore = os.path.join(args.out,"%s_protein_%s_score.tsv"%(args.library,args.prediction))
-outCtg = os.path.join(args.out,"%s_protein_%s_ctg.tsv"%(args.library,args.prediction))
+filtext = ""
+if args.nofilter:
+    filtext="nofilter_"
+outScore = os.path.join(args.out,"%s_protein_%s_%sscore.tsv"%(args.library,args.prediction,filtext))
+outCtg = os.path.join(args.out,"%s_protein_%s_%sctg.tsv"%(args.library,args.prediction,filtext))
 
 table = {}
 orgs = {}
@@ -81,6 +84,12 @@ for infile in os.listdir(args.genesgff):
     if not (infile.endswith(".gff3.gz") or
             infile.endswith(".gff.gz")):
         continue
+
+    # skip parsing non-prodigal annotations when target predictions is prodigal
+    # and skip parsing when prodigal annotation seen but is for funannotate peps
+    if ( (args.prediction == 'prodigal' and 'prodigal' not in infile) or
+        (args.prediction == 'funannotate' and 'prodigal' in infile) ):
+        continue
     inspecies = re.sub(r'((\.prodigal\.gff\.gz)|\.genes\.gff3\.gz)$','',infile)
     inspecies = re.sub(r'\.((JGI)|(ncbi))','',inspecies)
     if inspecies in jginames:
@@ -90,7 +99,6 @@ for infile in os.listdir(args.genesgff):
 #        print("skipping species %s not in the hmmsearch results"%(inspecies))
         continue
 
-    print(inspecies)
     gene2loc[inspecies] = {}
     i=0
     with gzip.open(os.path.join(args.genesgff,infile),'rb') as gff3:
@@ -129,17 +137,18 @@ for infile in os.listdir(args.genesgff):
             i += 1
 
 
-
+finalorgnames = []
 for org in orgnames:
     if org not in gene2loc:
         print("expected to find organism %s in gene2loc, but did not"%(org))
-
+    else:
+        finalorgnames.append(org)
 for o in gene2loc:
     if o not in orgs:
         print("expected to find organism %s in orgs, but did not"%(o))
 
 header = ["%s_gene"%(args.library)]
-header.extend(orgnames)
+header.extend(finalorgnames)
 
 with open(outScore,"w") as outScorefh, open(outCtg,"w") as outCtgfh:
     outcsv = csv.writer(outScorefh,delimiter="\t",lineterminator="\n")
@@ -149,7 +158,7 @@ with open(outScore,"w") as outScorefh, open(outCtg,"w") as outCtgfh:
     for fam in sorted(table.keys()):
         row = [fam]
         rowctg = [fam]
-        for org in orgnames:
+        for org in finalorgnames:
             if org not in gene2loc:
                 continue
             if org in table[fam]:
