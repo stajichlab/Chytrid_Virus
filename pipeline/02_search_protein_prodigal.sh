@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-#SBATCH -p short -N 1 -n 4 --mem 2gb --out logs/prodigal_pep_search.%a.log
+#SBATCH -p short -N 1 -n 24 --mem 2gb --out logs/prodigal_pep_search.%a.log
 
 module load hmmer/3.3
 
@@ -38,7 +38,7 @@ mkdir -p $OUT
 OUTFILE=$OUT/${BASE}.hmmsearch
 
 if [[ ! -f $OUTFILE.done || $TARGET -nt $OUTFILE.done ]]; then
-        hmmsearch -E 1e-8 --cpu $CPU --domtblout $OUTFILE.domtbl $QUERY $TARGET > $OUTFILE.log
+        srun hmmsearch -E 1e-8 --cpu $CPU --domtblout $OUTFILE.domtbl $QUERY $TARGET > $OUTFILE.log
   touch $OUTFILE.done
 fi
 
@@ -49,6 +49,6 @@ mkdir -p $OUT
 OUTFILE=$OUT/${BASE}.hmmsearch
 
 if [[ ! -f $OUTFILE.done || $TARGET -nt $OUTFILE.done ]]; then
-	hmmsearch -E 1e-8 --cpu $CPU --domtblout $OUTFILE.domtbl $QUERY $TARGET > $OUTFILE.log
+	srun hmmsearch -E 1e-8 --cpu $CPU --domtblout $OUTFILE.domtbl $QUERY $TARGET > $OUTFILE.log
   touch $OUTFILE.done
 fi
